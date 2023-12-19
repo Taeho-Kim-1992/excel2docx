@@ -31,16 +31,19 @@ class ExcelReader:
 
         return patient
 
-
     @staticmethod
-    def get_patients(): 
-        df = pd.read_excel(EXCEL_PATH, sheet_name = SHEET_NAME)
+    def get_patients(input_sheet): 
+        if input_sheet: 
+            sheet_name = input_sheet
+        else:
+            sheet_name = SHEET_NAME
+
+        df = pd.read_excel(EXCEL_PATH, sheet_name = sheet_name)
 
         patient_list = []
 
+        # Patient 객체 생성
         for _, row in df.iterrows():
-
-            # Patient 객체 생성
             patient = ExcelReader._get_patient_from_row(row)
             patient_list.append(patient)
 

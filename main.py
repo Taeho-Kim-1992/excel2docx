@@ -2,22 +2,23 @@ from excel_reader import ExcelReader
 from docx_writer import DocxWriter
 from docx2pdf import convert
 import os
+import sys
 from patient import Patient
 
 if __name__ == '__main__':
-    patients = ExcelReader.get_patients()
+    sheet_name = input('Enter Excel sheet name : ')
+    patients = ExcelReader.get_patients(sheet_name)
+
+    destination_dir = input('Enter docs file destination : ')
+
+    if destination_dir:
+        dest = 'destination_dir'
+    else:
+        dest = 'dest'
 
     # set patient data into docx file
     for patient in patients:
         docx = DocxWriter(patient)
-        docx.write_patient(patient)
+        docx.write_patient(patient, dest)
 
     print(f'patient from excel :: {len(patients)} files done!')
-
-    destination_dir = os.listdir('dest')
-    docx_files = [file for file in destination_dir if file.endswith('.docx')]
-
-    for docx_file in docx_files:
-        print(docx_file)
-        convert(f'dest/{docx_file}.docx', f'dest/{docx_file}.pdf')
-

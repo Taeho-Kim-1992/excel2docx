@@ -9,15 +9,7 @@ class DocxWriter:
         self.patient = patient
 
     @staticmethod
-    def read_all_text():
-        doc = Document(TEMPLATE_PATH)
-
-        for paragraph in doc.paragraphs:
-            print(paragraph.text)
-
-
-    @staticmethod
-    def write_patient(patient):
+    def write_patient(patient, dest):
         doc = Document(TEMPLATE_PATH)
 
         for paragraph in doc.paragraphs:
@@ -35,7 +27,7 @@ class DocxWriter:
                 paragraph.text = f"Medicare # : {patient.medicare_number}"
 
         # 채워진 정보를 새로운 파일로 저장
-        output_path = f'dest/{patient.get_file_name()}.docx'
+        output_path = f'{dest}/{patient.get_file_name()}.docx'
         doc.save(output_path)
         print(f"Filled form saved at: {output_path}")
 
