@@ -1,4 +1,5 @@
 import re
+from datetime import datetime 
 
 class Patient:
 
@@ -25,9 +26,15 @@ class Patient:
         return self.gender[0].upper()
 
     def get_file_name(self):
-        full_name = f'{self.last_name},{self.first_name}'
-        return re.sub(r'\s', '', full_name)
+        full_name = f'{self.last_name}, {self.first_name}'
+        return re.sub(r'\s', '', full_name.upper())
 
     def get_full_name(self):
-        return f'{self.last_name}, {self.first_name}'
+        # return f'{self.last_name}, {self.first_name}'
+        return f'{self.last_name}, {self.first_name}'.upper()
+
+    def get_date_of_birth(self): 
+        original_date = datetime.strptime(self.dob, '%Y-%m-%d %H:%M:%S')
+        us_date_format = original_date.strftime('%m/%d/%Y')
+        return us_date_format
 

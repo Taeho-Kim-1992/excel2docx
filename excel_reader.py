@@ -1,7 +1,7 @@
 import pandas as pd
 from patient import Patient
 
-SHEET_NAME = 'Victoville'
+SHEET_NAME = 'Diamond Bar(완료)'
 EXCEL_PATH = 'resources/given_form.xlsx'
 
 ROW_PATIENT_ADDRESS = 'Address'
@@ -38,6 +38,7 @@ class ExcelReader:
         else:
             sheet_name = SHEET_NAME
 
+        print(f'Sheet :: {sheet_name}')
         df = pd.read_excel(EXCEL_PATH, sheet_name = sheet_name)
 
         patient_list = []
