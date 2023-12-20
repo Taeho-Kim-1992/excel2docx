@@ -1,9 +1,8 @@
 import pandas as pd
+import os
 from patient import Patient
 
-SHEET_NAME = 'Diamond Bar(완료)'
-EXCEL_PATH = 'resources/given_form.xlsx'
-
+RESOURCE_PATH = 'resources'
 ROW_PATIENT_ADDRESS = 'Address'
 ROW_PATIENT_NAME = 'Patient Name'
 ROW_PATIENT_GENDER = 'Gender'
@@ -32,14 +31,22 @@ class ExcelReader:
         return patient
 
     @staticmethod
-    def get_patients(input_sheet): 
-        if input_sheet: 
-            sheet_name = input_sheet
+    def _get_sheet_name(): 
+        files = os.listdir('resources')
+        excel_files = [file for file in files if file.endswith(".xlsx")]
+        if len(excel_files) == 1:
+            return excel_files[0]
         else:
-            sheet_name = SHEET_NAME
+            print('Please double check ~/resources directory')
+            return None
+
+    @staticmethod
+    def get_patients(): 
+
+        sheet_name = ExcelReader._get_sheet_name()
 
         print(f'Sheet :: {sheet_name}')
-        df = pd.read_excel(EXCEL_PATH, sheet_name = sheet_name)
+        df = pd.read_excel(f'{RESOURCE_PATH}/{sheet_name}', sheet_name = sheet_name.split('.')[0])
 
         patient_list = []
 
